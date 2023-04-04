@@ -2,7 +2,7 @@ import { Router } from "express";
 import { blogControllers } from "@controllers";
 import { AuthMiddleware } from "@middlewares";
 
-const router = Router();
+const router: any = Router();
 
 router.get('/all', blogControllers.getAllBlogs);
 router.post('/create', AuthMiddleware.authenticateToken, blogControllers.createBlog);
