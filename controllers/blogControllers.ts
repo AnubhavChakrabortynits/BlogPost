@@ -21,7 +21,7 @@ const createBlog = async (req: Request, res: Response, next: NextFunction) => {
 const deleteBlog = async (req: Request, res: Response, next: NextFunction) => { 
     try {
         const blogId = new Types.ObjectId(req.params.id);
-        await BlogModel.BlogSchema.deleteOne({ __id: blogId });
+        await BlogModel.BlogSchema.deleteOne({ id: blogId });
         return res.status(httpStatus.OK).json({
             message: "Blog was successfully deleted"
         })
