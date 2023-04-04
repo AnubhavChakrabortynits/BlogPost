@@ -34,7 +34,14 @@ const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
 const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {;
         const blogId = new Types.ObjectId(req.params.id);
-        const blog = await BlogModel.BlogSchema.findByIdAndUpdate(blogId, req.body)
+        const blog = await BlogModel.BlogSchema.findOne({id: blogId});
+        
+        if(!blog){
+            return res.status(httpStatus.BAD_REQUEST).json({error : "No Such Blog "});
+        }
+        
+        Object.assign(blog, req.body);
+        await blog.save();
         return res.status(httpStatus.OK).json({
             blog: blog,
             message: "Blog was updated successfully"
